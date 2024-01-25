@@ -1047,8 +1047,8 @@ MonoBehaviour:
     name: You
     stepDialogue:
     - This clock says... 3pm?
-    - That's odd, according to my watch it's currently 5:07pm. Weirdly specific time
-      to stop on.
+    - 'That''s odd, according to my watch it''s currently 5:07pm. Weirdly specific
+      time to stop on. '
 --- !u!1001 &539942332
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1160,7 +1160,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &608892545
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2850,7 +2850,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1818487552
 RectTransform:
   m_ObjectHideFlags: 0
