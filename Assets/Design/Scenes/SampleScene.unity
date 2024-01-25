@@ -764,6 +764,54 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 426473726}
   m_CullTransparentMesh: 1
+--- !u!1 &489797009
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 489797010}
+  - component: {fileID: 489797011}
+  m_Layer: 0
+  m_Name: GlobalDialogueManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &489797010
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489797009}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &489797011
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489797009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6bff878bf3e4c2e4baad40b088547405, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dialoguePanel: {fileID: 608892544}
+  playerCamera: {fileID: 519420028}
+  speakerName: {fileID: 21855697}
+  dialogueText: {fileID: 836019881}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,11 +1040,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 526912185}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 45c0c7ecf09119e498a707890ca87120, type: 3}
+  m_Script: {fileID: 11500000, guid: 09f76f7a70f5bf049867dd3e662e7c73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerCamera: {fileID: 519420028}
-  sceneWindow: {fileID: 633745618}
+  dialogue:
+    name: You
+    stepDialogue:
+    - This clock says... 3pm?
+    - That's odd, according to my watch it's currently 5:07pm. Weirdly specific time
+      to stop on.
 --- !u!1001 &539942332
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1499,7 +1551,7 @@ RectTransform:
   m_AnchorMin: {x: 0.192, y: 0.41355574}
   m_AnchorMax: {x: 0.192, y: 0.41355574}
   m_AnchoredPosition: {x: 11.734436, y: -4.201874}
-  m_SizeDelta: {x: 1077.6704, y: 147.9063}
+  m_SizeDelta: {x: 1104.6, y: 147.9063}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &836019881
 MonoBehaviour:
@@ -2210,7 +2262,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1010120747}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 489797011}
+        m_TargetAssemblyTypeName: DialogueManager, Assembly-CSharp
+        m_MethodName: DisplayNextStep
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1010120747
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3742,6 +3806,7 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
+  - {fileID: 489797010}
   - {fileID: 706533653}
   - {fileID: 1846477462}
   - {fileID: 960742511}
