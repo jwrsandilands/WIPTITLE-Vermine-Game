@@ -1049,6 +1049,7 @@ MonoBehaviour:
     - This clock says... 3pm?
     - 'That''s odd, according to my watch it''s currently 5:07pm. Weirdly specific
       time to stop on. '
+  dialogueFile: {fileID: 4900000, guid: 3a1f07c0fe78f1f439c0fd9c9e59b61a, type: 3}
 --- !u!1001 &539942332
 PrefabInstance:
   m_ObjectHideFlags: 0
