@@ -6,6 +6,13 @@ public class DialogueActor : MonoBehaviour
 {
     public Dialogue dialogue;
 
+    public TextAsset dialogueFile;
+
+    private void Start()
+    {
+        dialogue = TextExtractor.ExtractDialogue(dialogueFile);
+    }
+
     private void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(0))

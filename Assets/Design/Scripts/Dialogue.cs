@@ -8,5 +8,5 @@ public class Dialogue
     public string name;
 
     [TextArea(1, 2)]
-    public string[] stepDialogue;
+    public List<string> stepDialogue;
 }
