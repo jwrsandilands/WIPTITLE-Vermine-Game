@@ -9,11 +9,11 @@ public class TextExtractor
     public static Dialogue ExtractDialogue(TextAsset dialogueFile)
     {
         Dialogue dialogue = new();
-        List<string> addDialogue = new();
+        List<PrintDialogue> addPrintDialogue = new();
 
         string[] dialogueSteps = dialogueFile.text.Split('$');
 
-        int characterIndex, emotionIndex;
+        int characterIndex = 0, emotionIndex = 0;
 
         for (int i = 1; i < dialogueSteps.Length; i++)
         {
@@ -31,11 +31,10 @@ public class TextExtractor
                     throw new InvalidCastException($"{dialogueFile.name}'s Dialogue Indecies Loaded Incorrectly!");
                 }
             }
-
-            addDialogue.Add(dialogueSteps[i].Trim());
+            addPrintDialogue.Add(new PrintDialogue(characterIndex, emotionIndex, dialogueSteps[i].Trim()));
         }
 
-        dialogue.stepDialogue = addDialogue;
+        dialogue.printDialogues = addPrintDialogue;
 
         return dialogue;
     }

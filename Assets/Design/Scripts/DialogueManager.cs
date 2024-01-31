@@ -10,27 +10,27 @@ public class DialogueManager : MonoBehaviour
     public GameObject playerCamera;
     public TextMeshProUGUI speakerName;
     public TextMeshProUGUI dialogueText;
+    public Image dialogueTalkSprite;
+    public CharacterManager characterManager;
 
-    private Queue<string> steps;
+    private Queue<PrintDialogue> printDialogues;
 
     private void Start()
     {
         dialoguePanel.SetActive(false);
-        steps = new Queue<string>();
+        printDialogues = new Queue<PrintDialogue>();
     }
 
     public void StartDialogue(Dialogue dialogue)
     {
-        speakerName.text = dialogue.name;
-
         playerCamera.GetComponent<MoveCamera>().isSceneWindowActive = true;
         dialoguePanel.SetActive(true);
 
-        steps.Clear();
+        printDialogues.Clear();
 
-        foreach(string step in dialogue.stepDialogue)
+        foreach (PrintDialogue step in dialogue.printDialogues)
         {
-            steps.Enqueue(step);
+            printDialogues.Enqueue(step);
         }
 
         DisplayNextStep();
@@ -38,21 +38,39 @@ public class DialogueManager : MonoBehaviour
 
     public void DisplayNextStep()
     {
-        if (steps.Count == 0)
+        if (printDialogues.Count == 0)
         {
             EndDialogue();
             return;
         }
 
-        string stepDialogue = steps.Dequeue();
+        PrintDialogue stepDialogue = printDialogues.Dequeue();
         StopAllCoroutines();
         StartCoroutine(TypeDialogue(stepDialogue));
     }
 
-    IEnumerator TypeDialogue (string step)
+    IEnumerator TypeDialogue(PrintDialogue step)
     {
         dialogueText.text = "";
-        foreach (char letter in step.ToCharArray())
+        foreach(Character character in characterManager.characters)
+        {
+            if(character.id == step.character)
+            {
+                speakerName.text = character.name;
+
+                int count = 0;
+                foreach (Sprite talkSprite in character.talkSprites)
+                {
+                    if (count == step.emotion)
+                    {
+                        dialogueTalkSprite.sprite = talkSprite;
+                    }
+                    count++;
+                }
+            }
+        }
+
+        foreach (char letter in step.dialogue.ToCharArray())
         {
             dialogueText.text += letter;
             yield return null;

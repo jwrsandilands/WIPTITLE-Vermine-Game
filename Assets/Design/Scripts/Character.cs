@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class Dialogue
+public class Character
 {
-    public List<PrintDialogue> printDialogues;
+    public int id;
+    public string name;
+    public Sprite[] talkSprites;
 }
