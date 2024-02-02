@@ -18,6 +18,7 @@ public class SceneWindowObject : MonoBehaviour
         {
             gameObject.SetActive(false);
             sceneCamera.GetComponent<MoveCamera>().isSceneWindowActive = false;
+            sceneCamera.GetComponent<MoveCamera>().isAnimationPlaying = false;
         }
     }
 }

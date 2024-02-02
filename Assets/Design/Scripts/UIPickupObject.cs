@@ -9,6 +9,7 @@ public class UIPickupObject : MonoBehaviour
     public Camera playerCamera;
     public GameObject textElement;
     public GameObject cameraFocusObject;
+    public GameObject UIManager;
     public Button collectable;
     public Image popupScene;
     public bool isSceneWindowActive;
@@ -31,6 +32,7 @@ public class UIPickupObject : MonoBehaviour
         created.GetComponent<UIAnimatePickup>().playerCamera = playerCamera;
         created.GetComponent<UIAnimatePickup>().popupScene = popupScene;
 
-        gameObject.GetComponent<Image>().color = new Color(0, 0, 0, 0);
+        gameObject.GetComponent<Image>().enabled = false;
+        collectable.enabled = false;
     }
 }

@@ -7,9 +7,16 @@ public class UIAnimatePickup : MonoBehaviour
 {
     public Camera playerCamera;
     public Image popupScene;
+    public GameObject UIManager;
     private float toTimeSpent, fromTimeSpent;
     public float toDuration, fromDuration;
     public float offset;
+
+    private void Start()
+    {
+        UIManager = GameObject.Find("GlobalUI");
+        gameObject.transform.SetParent(UIManager.transform);
+    }
 
     void FixedUpdate()
     {
