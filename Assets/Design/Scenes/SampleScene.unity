@@ -874,6 +874,7 @@ GameObject:
   m_Component:
   - component: {fileID: 489797010}
   - component: {fileID: 489797011}
+  - component: {fileID: 489797012}
   m_Layer: 0
   m_Name: GlobalDialogueManager
   m_TagString: Untagged
@@ -914,6 +915,38 @@ MonoBehaviour:
   dialogueText: {fileID: 836019881}
   dialogueTalkSprite: {fileID: 603426731}
   characterManager: {fileID: 422261214}
+  TextCodeManager: {fileID: 489797012}
+--- !u!114 &489797012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489797009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 07d47d99274633447b7d36188b92de89, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  formatCodes:
+  - textCode: d
+    textColor: {r: 0, g: 0, b: 0, a: 1}
+    bold: 0
+    italic: 0
+    underline: 0
+    soundEffect: {fileID: 0}
+  - textCode: i
+    textColor: {r: 0, g: 0.5384617, b: 1, a: 1}
+    bold: 1
+    italic: 1
+    underline: 0
+    soundEffect: {fileID: 0}
+  - textCode: a
+    textColor: {r: 1, g: 0.032967027, b: 0, a: 1}
+    bold: 1
+    italic: 0
+    underline: 1
+    soundEffect: {fileID: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1447,7 +1480,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneCamera: {fileID: 519420028}
-  clickDisabler: {fileID: 888424552}
   showPopupFlag: 0
 --- !u!1 &665996593
 GameObject:
@@ -2355,7 +2387,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneCamera: {fileID: 519420028}
-  clickDisabler: {fileID: 888424552}
   showPopupFlag: 0
 --- !u!1 &1010120744
 GameObject:
@@ -3664,6 +3695,7 @@ MonoBehaviour:
   playerCamera: {fileID: 519420031}
   textElement: {fileID: 1818487551}
   cameraFocusObject: {fileID: 9128967834006462287, guid: d94cbe6f4a02f184ba9e5b53e572cb7e, type: 3}
+  UIManager: {fileID: 0}
   collectable: {fileID: 1998143244}
   popupScene: {fileID: 989129740}
   isSceneWindowActive: 0

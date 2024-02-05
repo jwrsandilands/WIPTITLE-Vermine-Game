@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,7 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public Image dialogueTalkSprite;
     public CharacterManager characterManager;
+    public TextFormatCodeManager TextCodeManager;
 
     private Queue<PrintDialogue> printDialogues;
 
@@ -70,10 +72,81 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
+        bool readingCode = false;
+        string readTextCode = "";
+        TextFormatCode defaultCode = TextCodeManager.formatCodes.Where(e => e.textCode == "d").FirstOrDefault();
+        TextFormatCode applyCode = new();
         foreach (char letter in step.dialogue.ToCharArray())
         {
-            dialogueText.text += letter;
-            yield return null;
+            if(letter == '[')
+            {
+                readingCode = true;
+                continue;
+            }
+            else if(letter == ']')
+            {
+                readingCode = false;
+                readTextCode = "";
+                continue;
+            }
+
+            if (readingCode)
+            {
+                readTextCode += letter;
+
+                if(readTextCode == "d")
+                {
+                    dialogueText.text += $"<color=#{ColorUtility.ToHtmlStringRGBA(defaultCode.textColor)}>";
+
+                    if (applyCode.bold)
+                    {
+                        dialogueText.text += "</b>";
+                    }
+                    if (applyCode.italic)
+                    {
+                        dialogueText.text += "</i>";
+                    }
+                    if (applyCode.underline)
+                    {
+                        dialogueText.text += "</u>";
+                    }
+
+                    continue;
+                }
+                else if(TextCodeManager.formatCodes.Any(e => e.textCode == readTextCode))
+                {
+                    applyCode = TextCodeManager.formatCodes.Where(e => e.textCode == readTextCode).FirstOrDefault();
+
+                    dialogueText.text += $"<color=#{ColorUtility.ToHtmlStringRGBA(applyCode.textColor)}>";
+                    if (applyCode.bold)
+                    {
+                        dialogueText.text += "<b>";
+                    }
+                    if (applyCode.italic)
+                    {
+                        dialogueText.text += "<i>";
+                    }
+                    if (applyCode.underline)
+                    {
+                        dialogueText.text += "<u>";
+                    }
+                    continue;
+                }
+                else
+                {
+                    if (readTextCode.Length > 30)
+                    {
+                        readingCode = false;
+                        readTextCode = "";
+                    }
+                    continue;
+                }
+            }
+            else
+            {
+                dialogueText.text += letter;
+                yield return null;
+            }
         }
     }
 
