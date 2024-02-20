@@ -14,6 +14,7 @@ public class DialogueManager : MonoBehaviour
     public Image dialogueTalkSprite;
     public CharacterManager characterManager;
     public TextFormatCodeManager TextCodeManager;
+    public SpriteAnimator spriteAnimator;
 
     private Queue<PrintDialogue> printDialogues;
 
@@ -116,6 +117,10 @@ public class DialogueManager : MonoBehaviour
                 else if(TextCodeManager.formatCodes.Any(e => e.textCode == readTextCode))
                 {
                     applyCode = TextCodeManager.formatCodes.Where(e => e.textCode == readTextCode).FirstOrDefault();
+
+                    // MOVE LATER
+                    spriteAnimator.PerformAnimation(SpriteAnimationEnum.Hop);
+                    //
 
                     dialogueText.text += $"<color=#{ColorUtility.ToHtmlStringRGBA(applyCode.textColor)}>";
                     if (applyCode.bold)

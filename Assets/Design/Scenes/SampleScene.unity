@@ -875,6 +875,8 @@ GameObject:
   - component: {fileID: 489797010}
   - component: {fileID: 489797011}
   - component: {fileID: 489797012}
+  - component: {fileID: 489797013}
+  - component: {fileID: 489797014}
   m_Layer: 0
   m_Name: GlobalDialogueManager
   m_TagString: Untagged
@@ -916,6 +918,7 @@ MonoBehaviour:
   dialogueTalkSprite: {fileID: 603426731}
   characterManager: {fileID: 422261214}
   TextCodeManager: {fileID: 489797012}
+  spriteAnimator: {fileID: 489797014}
 --- !u!114 &489797012
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -947,6 +950,35 @@ MonoBehaviour:
     italic: 0
     underline: 1
     soundEffect: {fileID: 0}
+--- !u!114 &489797013
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489797009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 992701beecf6e854494d98e1c9abe422, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  spriteAnimations:
+  - animationType: 0
+    animation: {fileID: 7400000, guid: e27b9c4d5f1f5ce44a35adf68b6575b1, type: 2}
+--- !u!114 &489797014
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489797009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 83b4414fa90d4ba4eac800ba99c827ae, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationDictionary: {fileID: 489797013}
+  animator: {fileID: 603426733}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -1286,6 +1318,7 @@ GameObject:
   - component: {fileID: 603426730}
   - component: {fileID: 603426732}
   - component: {fileID: 603426731}
+  - component: {fileID: 603426733}
   m_Layer: 5
   m_Name: TalkSprite
   m_TagString: Untagged
@@ -1332,7 +1365,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: a07f8f6de25c50c44a102acd19ffd157, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1350,6 +1383,27 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 603426729}
   m_CullTransparentMesh: 1
+--- !u!95 &603426733
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 603426729}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 5c8e57aaba694ad48a713b3e08891163, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &608892544
 GameObject:
   m_ObjectHideFlags: 0
@@ -1367,7 +1421,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &608892545
 RectTransform:
   m_ObjectHideFlags: 0
