@@ -73,78 +73,47 @@ public class DialogueManager : MonoBehaviour
             }
         }
 
-        bool readingCode = false;
-        string readTextCode = "";
-        TextFormatCode defaultCode = TextCodeManager.formatCodes.Where(e => e.textCode == "d").FirstOrDefault();
+        bool readingTextCode = false, readingAnimationCode = false;
+        string readCode = "";
         TextFormatCode applyCode = new();
         foreach (char letter in step.dialogue.ToCharArray())
         {
-            if(letter == '[')
+            switch(letter)
             {
-                readingCode = true;
-                continue;
-            }
-            else if(letter == ']')
-            {
-                readingCode = false;
-                readTextCode = "";
-                continue;
-            }
-
-            if (readingCode)
-            {
-                readTextCode += letter;
-
-                if(readTextCode == "d")
-                {
-                    dialogueText.text += $"<color=#{ColorUtility.ToHtmlStringRGBA(defaultCode.textColor)}>";
-
-                    if (applyCode.bold)
-                    {
-                        dialogueText.text += "</b>";
-                    }
-                    if (applyCode.italic)
-                    {
-                        dialogueText.text += "</i>";
-                    }
-                    if (applyCode.underline)
-                    {
-                        dialogueText.text += "</u>";
-                    }
-
+                case '[':
+                    readingTextCode = true;
                     continue;
-                }
-                else if(TextCodeManager.formatCodes.Any(e => e.textCode == readTextCode))
+                case ']':
+                    readingTextCode = false;
+                    continue;
+                case '{':
+                    readingAnimationCode = true;
+                    continue;
+                case '}':
+                    readingAnimationCode = false;
+                    continue;
+            };
+
+            if (readCode.Length > 30)
+            {
+                readingTextCode = false;
+                readCode = "";
+            }
+
+            if (readingTextCode)
+            {
+                readCode += letter;
+
+                if(TextCodeManager.formatCodes.Any(e => e.textCode == readCode))
                 {
-                    applyCode = TextCodeManager.formatCodes.Where(e => e.textCode == readTextCode).FirstOrDefault();
+                    applyCode = TextCodeManager.formatCodes.Where(e => e.textCode == readCode).FirstOrDefault();
+                    readCode = "";
 
                     // MOVE LATER
                     spriteAnimator.PerformAnimation(SpriteAnimationEnum.Hop);
                     //
 
-                    dialogueText.text += $"<color=#{ColorUtility.ToHtmlStringRGBA(applyCode.textColor)}>";
-                    if (applyCode.bold)
-                    {
-                        dialogueText.text += "<b>";
-                    }
-                    if (applyCode.italic)
-                    {
-                        dialogueText.text += "<i>";
-                    }
-                    if (applyCode.underline)
-                    {
-                        dialogueText.text += "<u>";
-                    }
-                    continue;
-                }
-                else
-                {
-                    if (readTextCode.Length > 30)
-                    {
-                        readingCode = false;
-                        readTextCode = "";
-                    }
-                    continue;
+                    SetDialogueAttributes(applyCode);
                 }
             }
             else
@@ -152,6 +121,30 @@ public class DialogueManager : MonoBehaviour
                 dialogueText.text += letter;
                 yield return null;
             }
+        }
+    }
+
+    private void SetDialogueAttributes(TextFormatCode inputCode)
+    {
+        string tagStart = "<";
+        
+        if (inputCode.textCode == "d")
+        {
+            tagStart = "</";
+        }
+        dialogueText.text += $"{tagStart}color=#{ColorUtility.ToHtmlStringRGBA(inputCode.textColor)}>";
+
+        if (inputCode.bold)
+        {
+            dialogueText.text = dialogueText.text + tagStart + "b>";
+        }
+        if (inputCode.italic)
+        {
+            dialogueText.text = dialogueText.text + tagStart + "i>";
+        }
+        if (inputCode.underline)
+        {
+            dialogueText.text = dialogueText.text + tagStart + "u>";
         }
     }
 

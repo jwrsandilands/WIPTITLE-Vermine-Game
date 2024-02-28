@@ -21,7 +21,6 @@ public class SpriteAnimator : MonoBehaviour
 
     private bool AnimateHop()
     {
-        //AnimationClip animationToPlay = animationDictionary.spriteAnimations.Where(e => e.animationType == SpriteAnimationEnum.Hop).FirstOrDefault().animation;
         animator.Play("Hop");
         return true;
     }
