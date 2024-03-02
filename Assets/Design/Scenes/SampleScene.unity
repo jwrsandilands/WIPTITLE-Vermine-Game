@@ -952,7 +952,7 @@ GameObject:
   - component: {fileID: 489797010}
   - component: {fileID: 489797011}
   - component: {fileID: 489797012}
-  - component: {fileID: 489797013}
+  - component: {fileID: 489797015}
   - component: {fileID: 489797014}
   m_Layer: 0
   m_Name: GlobalDialogueManager
@@ -994,7 +994,8 @@ MonoBehaviour:
   dialogueText: {fileID: 836019881}
   dialogueTalkSprite: {fileID: 603426731}
   characterManager: {fileID: 422261214}
-  TextCodeManager: {fileID: 489797012}
+  textCodeManager: {fileID: 489797012}
+  animationCodeManager: {fileID: 489797015}
   spriteAnimator: {fileID: 489797014}
 --- !u!114 &489797012
 MonoBehaviour:
@@ -1027,31 +1028,6 @@ MonoBehaviour:
     italic: 0
     underline: 1
     soundEffect: {fileID: 0}
---- !u!114 &489797013
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 489797009}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 992701beecf6e854494d98e1c9abe422, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  spriteAnimations:
-  - animationType: 0
-    animation: {fileID: 7400000, guid: e27b9c4d5f1f5ce44a35adf68b6575b1, type: 2}
-  - animationType: 1
-    animation: {fileID: 7400000, guid: 54c939bae394f894e886b2a42a6bada0, type: 2}
-  - animationType: 2
-    animation: {fileID: 7400000, guid: f8f1b2f0dcb15874f89f3829d834f5a7, type: 2}
-  - animationType: 3
-    animation: {fileID: 7400000, guid: f8f1b2f0dcb15874f89f3829d834f5a7, type: 2}
-  - animationType: 4
-    animation: {fileID: 7400000, guid: f8f1b2f0dcb15874f89f3829d834f5a7, type: 2}
-  - animationType: 5
-    animation: {fileID: 7400000, guid: f8f1b2f0dcb15874f89f3829d834f5a7, type: 2}
 --- !u!114 &489797014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1064,8 +1040,32 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83b4414fa90d4ba4eac800ba99c827ae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  animationDictionary: {fileID: 489797013}
   animator: {fileID: 603426733}
+--- !u!114 &489797015
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 489797009}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7d9babbf5a16b04781ac38b4eff818f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animationCodes:
+  - animationCode: hp
+    animationToPlay: 0
+  - animationCode: wb
+    animationToPlay: 1
+  - animationCode: sk
+    animationToPlay: 2
+  - animationCode: qz
+    animationToPlay: 3
+  - animationCode: sb
+    animationToPlay: 4
+  - animationCode: lw
+    animationToPlay: 5
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0

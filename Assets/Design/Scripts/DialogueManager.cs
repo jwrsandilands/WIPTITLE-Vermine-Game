@@ -13,7 +13,8 @@ public class DialogueManager : MonoBehaviour
     public TextMeshProUGUI dialogueText;
     public Image dialogueTalkSprite;
     public CharacterManager characterManager;
-    public TextFormatCodeManager TextCodeManager;
+    public TextFormatCodeManager textCodeManager;
+    public AnimationCodeManager animationCodeManager;
     public SpriteAnimator spriteAnimator;
 
     private Queue<PrintDialogue> printDialogues;
@@ -75,7 +76,6 @@ public class DialogueManager : MonoBehaviour
 
         bool readingTextCode = false, readingAnimationCode = false;
         string readCode = "";
-        TextFormatCode applyCode = new();
         foreach (char letter in step.dialogue.ToCharArray())
         {
             switch(letter)
@@ -104,16 +104,24 @@ public class DialogueManager : MonoBehaviour
             {
                 readCode += letter;
 
-                if(TextCodeManager.formatCodes.Any(e => e.textCode == readCode))
+                if(textCodeManager.formatCodes.Any(e => e.textCode == readCode))
                 {
-                    applyCode = TextCodeManager.formatCodes.Where(e => e.textCode == readCode).FirstOrDefault();
+                    TextFormatCode applyCode = textCodeManager.formatCodes.Where(e => e.textCode == readCode).FirstOrDefault();
                     readCode = "";
 
-                    // MOVE LATER
-                    spriteAnimator.PerformAnimation(SpriteAnimationEnum.Hop);
-                    //
-
                     SetDialogueAttributes(applyCode);
+                }
+            }
+            else if (readingAnimationCode)
+            {
+                readCode += letter;
+
+                if(animationCodeManager.animationCodes.Any(e => e.animationCode == readCode))
+                {
+                    AnimationCode animateCode = animationCodeManager.animationCodes.Where(e => e.animationCode == readCode).FirstOrDefault();
+                    readCode = "";
+
+                    spriteAnimator.PerformAnimation(animateCode.animationToPlay);
                 }
             }
             else

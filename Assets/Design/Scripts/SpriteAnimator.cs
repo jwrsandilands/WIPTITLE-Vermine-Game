@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class SpriteAnimator : MonoBehaviour
 {
-    public SpriteAnimationManager animationDictionary;
     public Animator animator;
 
     public bool PerformAnimation(SpriteAnimationEnum animation) =>
@@ -27,26 +26,31 @@ public class SpriteAnimator : MonoBehaviour
 
     private bool AnimateWobble()
     {
+        animator.Play("Wobble");
         return false;
     }
 
     private bool AnimateShake()
     {
+        animator.Play("Shake");
         return false;
     }
 
     private bool AnimateQuickZoom()
     {
+        animator.Play("QuickZoom");
         return false;
     }
 
     private bool AnimateStepBack()
     {
+        animator.Play("StepBack");
         return false;
     }
 
     private bool AnimateLower()
     {
+        animator.Play("Lower");
         return false;
     }
 }
