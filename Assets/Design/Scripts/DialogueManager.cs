@@ -120,6 +120,12 @@ public class DialogueManager : MonoBehaviour
                     readCode = "";
 
                     SetDialogueAttributes(applyCode);
+
+                    if(applyCode.soundEffect is not null)
+                    {
+                        sfxPlayer.clip = applyCode.soundEffect;
+                        sfxPlayer.Play();
+                    }
                 }
             }
             else if (readingAnimationCode)
