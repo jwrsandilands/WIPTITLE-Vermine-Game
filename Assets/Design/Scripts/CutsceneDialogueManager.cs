@@ -5,27 +5,16 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class DialogueManager : MonoBehaviour
+public class CutsceneDialogueManager : MonoBehaviour
 {
     public GameObject dialoguePanel;
     public GameObject playerCamera;
-    public TextMeshProUGUI speakerName;
     public TextMeshProUGUI dialogueText;
-    public Image dialogueTalkSprite;
-    public CharacterManager characterManager;
     public TextFormatCodeManager textCodeManager;
-    public AnimationCodeManager animationCodeManager;
-    public SpriteAnimator spriteAnimator;
     public SoundEffectCodeManager sfxCodeManager;
     public AudioSource sfxPlayer;
 
-    private Queue<PrintDialogue> printDialogues;
-
-    private void Start()
-    {
-        dialoguePanel.SetActive(false);
-        printDialogues = new Queue<PrintDialogue>();
-    }
+    private Queue<PrintDialogue> printDialogues = new Queue<PrintDialogue>();
 
     public void StartDialogue(Dialogue dialogue)
     {
@@ -58,25 +47,8 @@ public class DialogueManager : MonoBehaviour
     IEnumerator TypeDialogue(PrintDialogue step)
     {
         dialogueText.text = "";
-        foreach(Character character in characterManager.characters)
-        {
-            if(character.id == step.character)
-            {
-                speakerName.text = character.name;
 
-                int count = 0;
-                foreach (Sprite talkSprite in character.talkSprites)
-                {
-                    if (count == step.emotion)
-                    {
-                        dialogueTalkSprite.sprite = talkSprite;
-                    }
-                    count++;
-                }
-            }
-        }
-
-        bool readingTextCode = false, readingAnimationCode = false, readingSfxCode = false;
+        bool readingTextCode = false, readingSfxCode = false;
         string readCode = "";
         foreach (char letter in step.dialogue.ToCharArray())
         {
@@ -87,12 +59,6 @@ public class DialogueManager : MonoBehaviour
                     continue;
                 case ']':
                     readingTextCode = false;
-                    continue;
-                case '{':
-                    readingAnimationCode = true;
-                    continue;
-                case '}':
-                    readingAnimationCode = false;
                     continue;
                 case '<':
                     readingSfxCode = true;
@@ -105,7 +71,6 @@ public class DialogueManager : MonoBehaviour
             if (readCode.Length > 30)
             {
                 readingTextCode = false;
-                readingAnimationCode = false;
                 readingSfxCode = false;
                 readCode = "";
             }
@@ -126,18 +91,6 @@ public class DialogueManager : MonoBehaviour
                         sfxPlayer.clip = applyCode.soundEffect;
                         sfxPlayer.Play();
                     }
-                }
-            }
-            else if (readingAnimationCode)
-            {
-                readCode += letter;
-
-                if(animationCodeManager.animationCodes.Any(e => e.animationCode == readCode))
-                {
-                    AnimationCode animateCode = animationCodeManager.animationCodes.Where(e => e.animationCode == readCode).FirstOrDefault();
-                    readCode = "";
-
-                    spriteAnimator.PerformAnimation(animateCode.animationToPlay);
                 }
             }
             else if (readingSfxCode)
@@ -185,7 +138,7 @@ public class DialogueManager : MonoBehaviour
         }
     }
 
-    private void EndDialogue()
+    public void EndDialogue()
     {
         dialoguePanel.SetActive(false);
         playerCamera.GetComponent<MoveCamera>().isSceneWindowActive = false;

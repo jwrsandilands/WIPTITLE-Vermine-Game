@@ -6,6 +6,13 @@ public class CutsceneStartObject : MonoBehaviour
 {
     public Sprite[] AnimationPanels;
     public GameObject AnimationPanel;
+    public TextAsset DialogueFile;
+    private Dialogue DialogueToPrint;
+
+    private void Start()
+    {
+        DialogueToPrint = TextExtractor.ExtractDialogue(DialogueFile);
+    }
 
     private void OnMouseEnter()
     {
@@ -22,8 +29,8 @@ public class CutsceneStartObject : MonoBehaviour
         if (Input.GetMouseButtonDown(0))
         {
             print(gameObject.name);
-            AnimationPanel.GetComponent<CutsceneAnimation>().StartCutscene(AnimationPanels);
             AnimationPanel.SetActive(true);
+            AnimationPanel.GetComponent<CutsceneAnimation>().StartCutscene(AnimationPanels, DialogueToPrint);
         }
     }
 }

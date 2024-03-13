@@ -10,6 +10,8 @@ public class CutsceneAnimation : MonoBehaviour
     public Image CutsceneImage;
     public Button NextButton;
     public GameObject PlayerCamera;
+    public CutsceneDialogueManager DialogueManager;
+    private Dialogue DialogueToPrint;
 
     private void Start()
     {
@@ -17,11 +19,14 @@ public class CutsceneAnimation : MonoBehaviour
         btn.onClick.AddListener(NextScene);
     }
 
-    public void StartCutscene(Sprite[] givenFrames)
+    public void StartCutscene(Sprite[] givenFrames, Dialogue dialogue)
     {
+        gameObject.SetActive(true);
         PlayerCamera.GetComponent<MoveCamera>().isAnimationPlaying = true;
         Frames = givenFrames;
         FrameIndex = 0;
+        DialogueToPrint = dialogue;
+
         NextScene();
     }
 
@@ -29,12 +34,22 @@ public class CutsceneAnimation : MonoBehaviour
     {
         if (FrameIndex < Frames.Length)
         {
+            if(FrameIndex == 0)
+            {
+                DialogueManager.StartDialogue(DialogueToPrint);
+            }
+            else
+            {
+                DialogueManager.DisplayNextStep();
+            }
+
             CutsceneImage.sprite = Frames[FrameIndex];
             FrameIndex++;
         }
         else
         {
             PlayerCamera.GetComponent<MoveCamera>().isAnimationPlaying = false;
+            DialogueManager.EndDialogue();
             gameObject.SetActive(false);
         }
     }

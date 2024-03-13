@@ -1,0 +1,7 @@
+D
+$1
+$0
+$<Test>I Open the Fridge
+$1
+$1
+$Unsurprisingly, it's just a bunch of spoiled food.
